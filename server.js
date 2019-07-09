@@ -25,6 +25,8 @@ mongoose.connect(dbConfig.url, {
     process.exit();
 });
 
+
+
 app.get('/', (req, res) => {
     res.send('Bienvenue')
 });
