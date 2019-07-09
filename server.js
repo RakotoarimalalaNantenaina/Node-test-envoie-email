@@ -5,14 +5,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 var cors = require('cors');
 app.use(express.json())
-var methodOverride = require('method-override')
-
    app.use(cors());
-
-   app.use(methodOverride('X-HTTP-Method'));
-   app.use(methodOverride('X-HTTP-Method-Override'));
-   app.use(methodOverride('X-Method-Override'));
-   app.use(methodOverride('_method'));
 
 
 const dbConfig = require('./config/database.config.js');
