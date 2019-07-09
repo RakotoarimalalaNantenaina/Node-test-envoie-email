@@ -28,7 +28,7 @@ exports.create = (req, res) => {
                 service: 'gmail',
                 auth: {
                     user: "naynah344@gmail.com",
-                    pass: "nainah@343"
+                    pass: "43"
                 }
             });
 
@@ -55,7 +55,7 @@ exports.create = (req, res) => {
 
                 }).catch(err => {
                     res.status(500).send({
-                        message: err.message || "Some error occurred while creating the Note."
+                        message: err.message || "Some error occurred while creating the Mail."
                     });
                 });
         })

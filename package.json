@@ -17,6 +17,9 @@
     "express": "^4.16.4",
     "method-override": "^3.0.0",
     "mongoose": "^5.5.4",
-    "nodemailer": "^6.2.1"
+    "node-zoho": "0.0.39",
+    "nodemailer": "^6.2.1",
+    "zcrm-oauth2": "^1.3.0",
+    "zohocrm": "^0.1.5"
   }
 }
