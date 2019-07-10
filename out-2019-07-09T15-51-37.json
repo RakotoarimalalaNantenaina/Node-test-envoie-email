@@ -1,8 +1,0 @@
-{
-    "access_token": "1000.930f2046811ce300546328aac39a6c5f.193ba5a3d36b119171d22324b1c5faa7",
-    "refresh_token": "1000.642c7371239d77033dca89fe83ede1ec.1808365051e699ef23cf35cdade0302d",
-    "expires_in_sec": 3600,
-    "api_domain": "https://www.zohoapis.com",
-    "token_type": "Bearer",
-    "expires_in": 3600000
-}
