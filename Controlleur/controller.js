@@ -1,5 +1,8 @@
 const Mail = require('../Model/model.js');
 var nodemailer = require('nodemailer');
+const config = require('./../zoho.config');
+const zoho = require('@trifoia/zcrmsdk');
+
 
 
 exports.create = (req, res) => {
@@ -24,34 +27,54 @@ exports.create = (req, res) => {
                 email: req.body.email,
             });
 
-            var transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                    user: "naynah344@gmail.com",
-                    pass: "43"
-                }
+            // var transporter = nodemailer.createTransport({
+            //     service: 'gmail',
+            //     auth: {
+            //         user: "naynah344@gmail.com",
+            //         pass: "*******"
+            //     }
+            // });
+
+
+            // const mailOptions = {
+            //     from: 'naynah344@gmail.com', // e-mails qui envoie les messages
+            //     subject: req.body.subject,
+            //     to: req.body.email, // listes de e-mails qui reçoivent les messages
+            //     html: '<h1>Connexion OK</h1>'
+            // };
+
+
+            // transporter.sendMail(mailOptions, function (err, info) {
+            //     if (err)
+            //         console.log(err)
+            //     else
+            //         console.log(info);
+            // });
+
+            zoho.initialize(config).then((client) => {
+                client.API.MODULES.post({
+                    module: 'Contacts',
+                    body: {
+                        data: [
+                          {
+                            First_Name: req.body.nom,
+                            Last_Name: req.body.nom,
+                            Email: req.body.email,
+                            Mobile: req.body.mobile,
+                          }
+                        ],
+                    },
+                }).then((response) => {
+                   res.json(JSON.parse(response.body));
+                   res.send(response.body)
+                });
             });
 
-
-            const mailOptions = {
-                from: 'naynah344@gmail.com', // e-mails qui envoie les messages
-                subject: req.body.subject,
-                to: req.body.email, // listes de e-mails qui reçoivent les messages
-                html: '<h1>Connexion OK</h1>'
-            };
-
-
-            transporter.sendMail(mailOptions, function (err, info) {
-                if (err)
-                    console.log(err)
-                else
-                    console.log(info);
-            });
 
             eleve.save()
-                .then(data => {
-                    res.send(data);
-                    console.log(data);
+                .then(donnee => {
+                    res.send(donnee);
+                    console.log(donnee);
 
                 }).catch(err => {
                     res.status(500).send({
@@ -60,4 +83,20 @@ exports.create = (req, res) => {
                 });
         })
 };
-
+exports.contact = (req, res, next) => {
+    zoho.initialize(config).then((client) => {
+        client.API.MODULES.get({
+            module: 'Contacts',
+            params: {
+                page: 1,
+                per_page: 200,
+            },
+        }).then((response) => {
+            res.json(JSON.parse(response.body));
+            console.log("body", response.body);
+            res.send(response.body)
+            
+            
+        }).catch(next);
+    }).catch(next);
+}
